@@ -1,0 +1,88 @@
+version: 2
+
+models:
+  - name: dim_user
+    description: "User dimension"
+    columns:
+      - name: user_id
+        tests: [unique, not_null]
+      - name: join_time
+      - name: utm_source
+      - name: first_platform
+      - name: origin_country
+
+  - name: dim_transaction_category
+    description: "Transaction category dimension"
+    columns:
+      - name: transaction_category
+        tests: [unique, not_null]
+      - name: first_event_time
+      - name: last_event_time
+
+  - name: fct_miles
+    description: "Fact table of mile transactions"
+    columns:
+      - name: event_time
+      - name: user_id
+      - name: transaction_category
+
+  - name: fct_engagement
+    description: "Fact table of mile transactions"
+    columns:
+      - name: event_time
+      - name: user_id
+      - name: platform
+      - name: event_type
+  
+  - name: fct_search
+    description: "Fact table of mile transactions"
+    columns:
+      - name: event_time
+      - name: user_id
+      - name: platform
+      - name: transaction_category
+  
+  - name: agg_transaction_category_miles
+    description: "Aggregation of miles earned and redeemed for category"
+    columns:
+      - name: transaction_category
+        tests: [unique, not_null]
+      - name: total_earn_count
+      - name: total_redemption_count
+      - name: total_miles_earned
+      - name: total_miles_redeemed
+  
+  - name: agg_transaction_category_searches
+    description: "All searches of each transaction category"
+    columns:
+      - name: transaction_category
+        tests: [unique, not_null]
+      - name: total_search_count
+
+  - name: agg_user_miles
+    description: "Aggregated user miles earned and redeemed"
+    columns:
+      - name: user_id
+        tests: [unique, not_null]
+      - name: total_earn_count
+      - name: total_redemption_count
+      - name: total_miles_earned
+      - name: total_miles_redeemed
+  
+  - name: agg_user_searches
+    description: "Count of user searches"
+    columns:
+      - name: user_id
+        tests: [unique, not_null]
+      - name: total_search_count
+  
+  - name: agg_user_engagement
+    description: "Describes user engagement"
+    columns:
+      - name: user_id
+        tests: [unique, not_null]
+      
+      - name: total_likes
+      - name: total_shares
+  
+

@@ -1,0 +1,5 @@
+select user_id
+  , date_trunc('month', event_time) as month
+  , count(*) as total_search_count
+from warehouse.fct_searches
+group by user_id, month
